@@ -1,0 +1,23 @@
+<form action="" method="post">
+    <% user.wishlist.forEach( product=>{ %>
+    <div> <%=product.productId.album %></div>
+    <div> <%= product.productId.price %></div>
+
+    <% }) %>
+
+    <button id="btn" type="submit">Buy</button>
+
+</form>
+<script src="https://js.stripe.com/v3/"></script>
+
+
+<script>
+    //här hämtar man stripe
+    var stripe = Stripe('pk_test_eUOImExRBlldiAlwOAG9AoRX0082EpnbY8');
+    document.querySelector("#bth").addEventListener("click", () => {
+        stripe.redirectToCheckout({ // redirectToCheckout här kommer ifrån stripe // det kommer redirect till stripe egna checkout sida
+            sessionId: "<%=sessionId%>" //redirectToCheckout kräver sessionId:"<%=ska vara unik vi hittar på själva%>"
+            //"<%=sessionId%>" kommder ifrån när man renderar
+        });
+    });
+</script>
